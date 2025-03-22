@@ -1,0 +1,25 @@
+POST http://localhost:8080/api/auth/users/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "firstName": "John",
+  "lastName": "Doe",
+  "password": "securePassword123",
+  "age": 13,
+  "phone": "1234567890",
+  "email": "test@example.com",
+  "address": "123 Street, City"
+}
+
+###
+
+POST http://localhost:8080/api/auth/users/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "securePassword123"
+}
+
+###
