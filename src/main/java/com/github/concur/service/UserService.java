@@ -4,13 +4,15 @@ import com.github.concur.dto.LoginRequest;
 import com.github.concur.dto.UserDTO;
 import com.github.concur.entity.User;
 import com.github.concur.repository.UserRepository;
-import com.github.concur.util.mapper.JwtUtil;
+import com.github.concur.util.DateUtil;
+import com.github.concur.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -20,9 +22,11 @@ public class UserService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtUtil jwtUtil;
+  private final DateUtil dateUtil;
 
   public User registerUser(UserDTO userDTO) {
-    if (userDTO.getAge() <= 12) {
+    int age = dateUtil.dateDifference(new Date(), userDTO.getDob());
+    if (age <= 12) {
       throw new IllegalArgumentException("Age restriction: Users must be older than 12 years to proceed. Please ensure the age entered is correct.");
     }
     if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
@@ -34,7 +38,7 @@ public class UserService {
       user.setFirstName(userDTO.getFirstName());
       user.setLastName(userDTO.getLastName());
       user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
-      user.setAge(userDTO.getAge());
+      user.setDob(userDTO.getDob());
       user.setPhone(userDTO.getPhone());
       user.setEmail(userDTO.getEmail());
       user.setAddress(userDTO.getAddress());

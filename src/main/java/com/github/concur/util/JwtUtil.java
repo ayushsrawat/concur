@@ -1,4 +1,4 @@
-package com.github.concur.util.mapper;
+package com.github.concur.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

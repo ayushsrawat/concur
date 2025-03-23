@@ -6,10 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -33,8 +36,9 @@ public class User {
   @Column(name = "password_hash", nullable = false)
   private String passwordHash;
 
-  @Column(nullable = false)
-  private Integer age; //todo save dob instead of age?
+  @Column(name = "date_of_birth", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date dob;
 
   private String phone;
 
