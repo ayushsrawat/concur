@@ -4,7 +4,7 @@ import com.github.concur.dto.LoginRequest;
 import com.github.concur.dto.UserDTO;
 import com.github.concur.entity.User;
 import com.github.concur.service.UserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth/users")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthUserController {
 
   private final UserService userService;

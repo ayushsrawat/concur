@@ -7,7 +7,7 @@ import com.github.concur.repository.UserRepository;
 import com.github.concur.service.UserService;
 import com.github.concur.util.DateUtil;
 import com.github.concur.util.JwtUtil;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
   private final JwtUtil jwtUtil;
   private final DateUtil dateUtil;
 
+  @Override
   public User registerUser(UserDTO userDTO) {
     int age = dateUtil.dateDifference(new Date(), userDTO.getDob());
     if (age <= 12) {
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
   public String login(LoginRequest request) {
     Optional<User> user = userRepository.findByUsername(request.getUsername());
     if (user.isPresent()) {
