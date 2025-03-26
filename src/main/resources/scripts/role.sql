@@ -5,7 +5,7 @@ create table roles
     level int default 3      not null
 );
 
-insert into roles (name, level) values ('admin', 1);
-insert into roles (name, level) values ('seller', 2);
-insert into roles (name, level) values ('customer', 3);
+insert into roles (name, level) values ('ADMIN', 1);
+insert into roles (name, level) values ('SELLER', 2);
+insert into roles (name, level) values ('CUSTOMER', 3);
 

@@ -1,5 +1,6 @@
 package com.github.concur.util;
 
+import com.github.concur.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +16,10 @@ public class JwtUtil {
   @Value("${jwt.secret.key}")
   private String JWT_SECRET_KEY;
 
-  public String generateToken(String username) {
+  public String generateToken(User user) {
     return Jwts.builder()
-      .subject(username)
+      .subject(user.getUsername())
+      .claim("role", user.getRole().getName())
       .issuedAt(new Date())
       .expiration(new Date(System.currentTimeMillis() + 86400000)) //24hrs
       .signWith(Jwts.SIG.HS256.key().build())
