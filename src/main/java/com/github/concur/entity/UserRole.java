@@ -10,10 +10,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "user_roles")
 @Getter
 @Setter
-public class Role {
+public class UserRole {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

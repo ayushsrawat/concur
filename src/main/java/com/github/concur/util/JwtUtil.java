@@ -19,7 +19,7 @@ public class JwtUtil {
   public String generateToken(User user) {
     return Jwts.builder()
       .subject(user.getUsername())
-      .claim("role", user.getRole().getName())
+      .claim("role", user.getUserRole().getName())
       .issuedAt(new Date())
       .expiration(new Date(System.currentTimeMillis() + 86400000)) //24hrs
       .signWith(Jwts.SIG.HS256.key().build())

@@ -50,7 +50,7 @@ public class User {
 
   @ManyToOne
   @JoinColumn(name = "role_id", nullable = false)
-  private Role role;
+  private UserRole userRole;
 
   @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;

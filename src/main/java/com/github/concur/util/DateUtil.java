@@ -14,7 +14,7 @@ public class DateUtil {
     // https://stackoverflow.com/questions/1555262/calculating-the-difference-between-two-java-date-instances/
     LocalDate a1 =a.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     LocalDate b1 =b.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    return Math.abs(Period.between(a1, b1).getYears());
+    return Period.between(b1, a1).getYears();
   }
 
 }
