@@ -2,7 +2,7 @@ POST http://localhost:8080/api/auth/users/register
 Content-Type: application/json
 
 {
-  "username": "testuser1",
+  "username": "testuser3",
   "firstName": "John",
   "lastName": "Doe",
   "password": "securePassword123",
@@ -18,7 +18,7 @@ POST http://localhost:8080/api/auth/users/login
 Content-Type: application/json
 
 {
-  "username": "testuser",
+  "username": "testuser3",
   "password": "securePassword123"
 }
 

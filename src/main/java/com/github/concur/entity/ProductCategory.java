@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
@@ -15,13 +16,14 @@ import java.time.LocalDateTime;
 @Table(name = "product_category")
 @Getter
 @Setter
+@Accessors(chain = true)
 public class ProductCategory {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "name", nullable = false, unique = true, length = 50)
+  @Column(name = "category_name", nullable = false, unique = true, length = 50)
   private String name;
 
   @Column(name = "description", nullable = false)

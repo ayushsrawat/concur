@@ -22,6 +22,7 @@ public class SecurityConfig {
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/api/auth/**").permitAll()
+        //todo specify permits for sellers & admins
         .anyRequest().authenticated()
       );
     return http.build();

@@ -19,10 +19,10 @@ public class UserRole {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(nullable = false, unique = true)
+  @Column(name = "role_name", nullable = false, unique = true)
   private String name;
 
-  @Column(nullable = false)
+  @Column(name = "role_level", nullable = false)
   private Integer level;
 
 }

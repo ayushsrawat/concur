@@ -7,7 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -28,11 +29,7 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @ManyToOne
-  @JoinColumn(name = "category_id", nullable = false)
-  private ProductCategory category;
-
-  @Column(name = "name", nullable = false, unique = true, length = 100)
+  @Column(name = "product_name", nullable = false, unique = true, length = 100)
   private String name;
 
   private String description;
@@ -40,8 +37,16 @@ public class Product {
   @Column(nullable = false, precision = 10, scale = 2)
   private BigDecimal price;
 
-  @Column(name = "image_url")
-  private String imageUrl;
+  @Column(name = "thumbnail")
+  private String thumbnail;
+
+  @ManyToMany
+  @JoinTable(
+    name = "product_category_mapping",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id")
+  )
+  private List<ProductCategory> categories;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<ProductAttribute> attributes = new ArrayList<>();

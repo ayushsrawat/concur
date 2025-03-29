@@ -26,6 +26,15 @@ public class JwtUtil {
       .compact();
   }
 
+  public String extractUserRole(String token) {
+    return Jwts.parser()
+      .verifyWith(Jwts.SIG.HS256.key().build())
+      .build()
+      .parseSignedClaims(token)
+      .getPayload()
+      .get("role", String.class);
+  }
+
   private Key getSigningKey() {
     byte[] keyBytes = JWT_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
     return Keys.hmacShaKeyFor(keyBytes);

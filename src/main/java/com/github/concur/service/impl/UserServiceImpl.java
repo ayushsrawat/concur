@@ -9,6 +9,7 @@ import com.github.concur.repository.UserRoleRepository;
 import com.github.concur.service.UserService;
 import com.github.concur.util.DateUtil;
 import com.github.concur.util.JwtUtil;
+import com.github.concur.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
   private final JwtUtil jwtUtil;
   private final DateUtil dateUtil;
+  private final UserMapper userMapper;
 
   @Override
   public User registerUser(UserDTO userDTO) {
@@ -39,19 +41,14 @@ public class UserServiceImpl implements UserService {
     Assert.isTrue(age > 12, "Age restriction: Users must be older than 12 years to proceed. Please ensure the age entered is correct.");
     Assert.isTrue(userRepository.findByUsername(userDTO.getUsername()).isEmpty(), "Username already taken.");
     try {
-      User user = new User();
-      user.setUsername(userDTO.getUsername());
-      user.setFirstName(userDTO.getFirstName());
-      user.setLastName(userDTO.getLastName());
+      User user = userMapper.toEntity(userDTO);
       user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
-      user.setDob(userDTO.getDob());
-      user.setPhone(userDTO.getPhone());
-      user.setEmail(userDTO.getEmail());
-      user.setAddress(userDTO.getAddress());
       user.setCreatedAt(LocalDateTime.now());
+
       UserRole defaultRole = userRoleRepository.findByName("CUSTOMER")
           .orElseThrow(() -> new IllegalArgumentException("Default role CUSTOMER not found"));
       user.setUserRole(defaultRole);
+
       logger.info("saving user : {}", userDTO.getUsername());
       return userRepository.save(user);
     } catch (DataIntegrityViolationException e) {
